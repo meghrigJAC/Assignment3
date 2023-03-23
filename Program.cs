@@ -90,12 +90,12 @@ namespace Assignment3
                 if (MaxPrice < data.HighestPrice)
                 {
                     MaxPrice = data.HighestPrice;
-                    minDate = data.date;
+                    maxDate = data.date;
                 }
                 if (MinPrice > data.LowestPrice)
                 {
                     MinPrice = data.LowestPrice;
-                    maxDate = data.date;
+                    minDate = data.date;
                 }
                 totalAverage += average;
 
