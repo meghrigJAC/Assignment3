@@ -16,14 +16,7 @@ namespace Assignment3
             return (OpeningPrice + ClosingPrice + HighestPrice + LowestPrice) / 4;
         }
     }
-    enum Days
-    {
-        Monday=1,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday
-    }
+   
     internal class Program
     {
         static void Main(string[] args)
@@ -31,6 +24,9 @@ namespace Assignment3
             AssetPriceFluctuations();
         }
 
+        /* This method calls 2 methods to process and display the Assets data
+         * 
+         */
         public static void AssetPriceFluctuations()
         {
             string[] data =
@@ -44,11 +40,16 @@ namespace Assignment3
                 "176.60,106.11,177.55,100.18,03-09-2023"
                 };
 
+           
             List<AssetPrices> dailyPrices = ProcessArray(data);
                
             DisplayData(dailyPrices);
         }
-
+        /* 
+         * This method takes as parameter a string array that has the asset details in a comma separated format
+         * loops over the array, processes the data at every index, and places it in an AssetPrice structure
+         * returns a list of AssetPrices 
+         */
         public static List<AssetPrices> ProcessArray(string[] data)
         {
             string[] values;
@@ -69,6 +70,10 @@ namespace Assignment3
             }
             return dailyPrices;
         }
+
+        /* This method displays the data in tabular fashion and calculates the average highest and lowest asset days while printing
+         * 
+         */
         public static void DisplayData(List<AssetPrices> dailyPrices)
         {
             
@@ -86,7 +91,7 @@ namespace Assignment3
             foreach (AssetPrices data in dailyPrices)
             {
                 decimal average = data.GetAveragePrice();
-                Console.WriteLine($"{(Days)data.date.DayOfWeek,-10}: {data.OpeningPrice,-20} {data.ClosingPrice,-20} {data.LowestPrice,-20} {data.HighestPrice,-20:n2} {average,-20:n2} {data.date.ToString("D"),-40} ");
+                Console.WriteLine($"{data.date.DayOfWeek,-10}: {data.OpeningPrice,-20} {data.ClosingPrice,-20} {data.LowestPrice,-20} {data.HighestPrice,-20:n2} {average,-20:n2} {data.date.ToString("D"),-40} ");
                 if (MaxPrice < data.HighestPrice)
                 {
                     MaxPrice = data.HighestPrice;
