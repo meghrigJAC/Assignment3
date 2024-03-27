@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Assignment3
 {
@@ -16,14 +17,6 @@ namespace Assignment3
             return (OpeningPrice + ClosingPrice + HighestPrice + LowestPrice) / 4;
         }
     }
-    enum Days
-    {
-        Monday=1,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday
-    }
     internal class Program
     {
         static void Main(string[] args)
@@ -34,15 +27,15 @@ namespace Assignment3
         public static void AssetPriceFluctuations()
         {
             string[] data =
-                 {
-                "284.77,283.05,286.89,280.26,03-01-2023",
-                "276.46,277.14,278.32,269.52,03-02-2023",
-                "280.30,284.39,285.51,277.95,03-03-2023",
-                "284.83,283.03,286.56,280.80,03-06-2023",
-                "280.41,267.36,283.10,267.19,03-07-2023",
-                "266.86,267.90,270.92,264.13,03-08-2023",
-                "176.60,106.11,177.55,100.18,03-09-2023"
-                };
+              {
+            "181.45, 175.37, 182.74, 174.87, 03-08-2024",
+            "175.37, 177.66, 182.94, 174.87, 03-11-2024",
+            "177.76, 177.56, 179.45, 172.58, 03-12-2024",
+            "173.08, 169.49, 176.07, 169.29, 03-13-2024",
+            "167.69, 162.51, 171.08, 160.42, 03-14-2024",
+            "163.11, 163.51, 165.10, 160.92, 03-15-2024",
+            "170.09, 173.67, 174.67, 165.90, 03-18-2024"
+            };
 
             List<AssetPrices> dailyPrices = ProcessArray(data);
                
@@ -71,13 +64,14 @@ namespace Assignment3
         }
         public static void DisplayData(List<AssetPrices> dailyPrices)
         {
-            
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-CA");
+
             decimal MaxPrice = decimal.MinValue;
             decimal MinPrice = decimal.MaxValue;
             decimal totalAverage = 0m;
             DateTime minDate= DateTime.Today, maxDate= DateTime.Today;
 
-            Console.WriteLine($"Assignment 3 - programming 2 - Winter 2023");
+            Console.WriteLine($"Assignment 3 - programming 2 - Winter 2024");
             Console.WriteLine($"Report generated on {DateTime.Now.ToString("D")} by {"enter your name"}");
             Console.WriteLine();
 
@@ -86,16 +80,16 @@ namespace Assignment3
             foreach (AssetPrices data in dailyPrices)
             {
                 decimal average = data.GetAveragePrice();
-                Console.WriteLine($"{(Days)data.date.DayOfWeek,-10}: {data.OpeningPrice,-20} {data.ClosingPrice,-20} {data.LowestPrice,-20} {data.HighestPrice,-20:n2} {average,-20:n2} {data.date.ToString("D"),-40} ");
+                Console.WriteLine($"{(DayOfWeek)data.date.DayOfWeek,-10}: {data.OpeningPrice,-20} {data.ClosingPrice,-20} {data.LowestPrice,-20} {data.HighestPrice,-20:n2} {average,-20:n2} {data.date.ToString("D"),-40} ");
                 if (MaxPrice < data.HighestPrice)
                 {
                     MaxPrice = data.HighestPrice;
-                    minDate = data.date;
+                    maxDate = data.date;
                 }
                 if (MinPrice > data.LowestPrice)
                 {
                     MinPrice = data.LowestPrice;
-                    maxDate = data.date;
+                    minDate = data.date;
                 }
                 totalAverage += average;
 
