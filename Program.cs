@@ -10,8 +10,16 @@ namespace Assignment3
         public decimal ClosingPrice;
         public decimal HighestPrice;
         public decimal LowestPrice;
-        public DateTime date;
-
+        public DateTime Date;
+       
+       public AssetPrices(decimal oPrice, decimal cPrice, decimal lPrice, decimal hPrice, DateTime adate)
+        {
+            OpeningPrice = oPrice;
+            ClosingPrice = cPrice;
+            HighestPrice = hPrice;
+            LowestPrice = lPrice;
+            Date = adate;
+        }
         public decimal GetAveragePrice()
         {
             return (OpeningPrice + ClosingPrice + HighestPrice + LowestPrice) / 4;
@@ -56,7 +64,7 @@ namespace Assignment3
                 dailyPrice.ClosingPrice = decimal.Parse(values[1]);
                 dailyPrice.HighestPrice = decimal.Parse(values[2]);
                 dailyPrice.LowestPrice = decimal.Parse(values[3]);
-                dailyPrice.date = DateTime.Parse(values[4]);
+                dailyPrice.Date = DateTime.Parse(values[4]);
 
                 dailyPrices.Add(dailyPrice);
             }
@@ -80,16 +88,16 @@ namespace Assignment3
             foreach (AssetPrices data in dailyPrices)
             {
                 decimal average = data.GetAveragePrice();
-                Console.WriteLine($"{data.date.DayOfWeek,-DayCellWidth}: {data.OpeningPrice,-CellWidth} {data.ClosingPrice,-CellWidth} {data.LowestPrice,-CellWidth} {data.HighestPrice,-CellWidth:n2} {average,-CellWidth:n2} {data.date.ToString("D"),-DateCellWidth} ");
+                Console.WriteLine($"{data.Date.DayOfWeek,-DayCellWidth}: {data.OpeningPrice,-CellWidth} {data.ClosingPrice,-CellWidth} {data.LowestPrice,-CellWidth} {data.HighestPrice,-CellWidth:n2} {average,-CellWidth:n2} {data.Date.ToString("D"),-DateCellWidth} ");
                 if (MaxPrice < data.HighestPrice)
                 {
                     MaxPrice = data.HighestPrice;
-                    maxDate = data.date;
+                    maxDate = data.Date;
                 }
                 if (MinPrice > data.LowestPrice)
                 {
                     MinPrice = data.LowestPrice;
-                    minDate = data.date;
+                    minDate = data.Date;
                 }
                 totalAverage += average;
 
