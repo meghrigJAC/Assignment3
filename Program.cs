@@ -64,23 +64,23 @@ namespace Assignment3
         }
         public static void DisplayData(List<AssetPrices> dailyPrices)
         {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-CA");
 
             decimal MaxPrice = decimal.MinValue;
             decimal MinPrice = decimal.MaxValue;
             decimal totalAverage = 0m;
             DateTime minDate= DateTime.Today, maxDate= DateTime.Today;
+            const int DayCellWidth = 10, CellWidth=20, DateCellWidth=40, TableCell=50;
 
             Console.WriteLine($"Assignment 3 - programming 2 - Winter 2024");
             Console.WriteLine($"Report generated on {DateTime.Now.ToString("D")} by {"enter your name"}");
             Console.WriteLine();
 
-            Console.WriteLine($"{"Day",-10} {"Opening Price",-20} {"Closing Price",-20} {"Lowest Price",-20} {"Highest Price",-20}  {"Average Price",-20} {"Date",-40} ");
+            Console.WriteLine($"{"Day",-DayCellWidth} {"Opening Price",-CellWidth} {"Closing Price",-CellWidth} {"Lowest Price",-CellWidth} {"Highest Price",-CellWidth}  {"Average Price",-CellWidth} {"Date",-DateCellWidth} ");
 
             foreach (AssetPrices data in dailyPrices)
             {
                 decimal average = data.GetAveragePrice();
-                Console.WriteLine($"{(DayOfWeek)data.date.DayOfWeek,-10}: {data.OpeningPrice,-20} {data.ClosingPrice,-20} {data.LowestPrice,-20} {data.HighestPrice,-20:n2} {average,-20:n2} {data.date.ToString("D"),-40} ");
+                Console.WriteLine($"{data.date.DayOfWeek,-DayCellWidth}: {data.OpeningPrice,-CellWidth} {data.ClosingPrice,-CellWidth} {data.LowestPrice,-CellWidth} {data.HighestPrice,-CellWidth:n2} {average,-CellWidth:n2} {data.date.ToString("D"),-DateCellWidth} ");
                 if (MaxPrice < data.HighestPrice)
                 {
                     MaxPrice = data.HighestPrice;
@@ -96,9 +96,9 @@ namespace Assignment3
             }
 
             Console.WriteLine();
-            Console.WriteLine($"{"The highest Price was:",-50} {MaxPrice} on {maxDate.ToString("d")}");
-            Console.WriteLine($"{"The lowest Price was:",-50} {MinPrice} on {minDate.ToString("d")}");
-            Console.WriteLine($"{"The average of all the daily average prices is:",-50} {totalAverage / dailyPrices.Count :n2}");
+            Console.WriteLine($"{"The highest Price was:",-TableCell} {MaxPrice} on {maxDate.ToString("d")}");
+            Console.WriteLine($"{"The lowest Price was:",-TableCell} {MinPrice} on {minDate.ToString("d")}");
+            Console.WriteLine($"{"The average of all the daily average prices is:",-TableCell} {totalAverage / dailyPrices.Count :n2}");
         }
     }
 }
